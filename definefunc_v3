@@ -1,4 +1,4 @@
-V3: Code for taking in user inputs for concentration and absorbance are defined as a function
+#V3: Code for taking in user inputs for concentration and absorbance are defined as a function
 
 import matplotlib.pyplot as plt
 import numpy as np
