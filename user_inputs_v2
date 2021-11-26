@@ -1,4 +1,4 @@
-User input for concentration and absorbance; stores values in a list, converts it into a numpy array for the purpose of plotting the line of best fit
+#v2: User input for concentration and absorbance; stores values in a list, converts it into a numpy array for the purpose of plotting the line of best fit
 
 import matplotlib.pyplot as plt
 import numpy as np
