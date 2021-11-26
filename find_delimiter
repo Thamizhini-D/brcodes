@@ -1,0 +1,11 @@
+import csv
+
+#find the delimiter used in the csv file
+def find_delimiter(filename):
+    sniffer = csv.Sniffer()
+    with open(filename) as fp:
+        delimiter = sniffer.sniff(fp.read(5000)).delimiter
+    return delimiter
+
+delim_finden = find_delimiter('samplecsvdata_testcode.csv')
+print("delimer used in the data is:", delim_finden)
