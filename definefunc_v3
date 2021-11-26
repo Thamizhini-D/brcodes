@@ -1,0 +1,58 @@
+V3: Code for taking in user inputs for concentration and absorbance are defined as a function
+
+import matplotlib.pyplot as plt
+import numpy as np
+import scipy.stats as stats
+
+#layout of the graph
+plt.ylabel('absorbance at 595nm')
+plt.xlabel('concentration of proteins')
+plt.title('Graph of the standard curve')
+
+#function takes values from user and stores them in a list. Taken from 
+
+def store_value(num):
+    user_list = []
+    for each in range(num):
+        values = float(input())
+        user_list.append(values)
+        
+    return user_list
+
+#asks for concentration and absorance values from user, stores them in a list and converts them into an array to plot them
+conc = int(input("How many data values do you have for concentration: "))
+conc_arr = np.array(store_value(conc))
+
+abso = int(input("How many data values do you have for absorbance: "))
+abso_arr = np.array(store_value(abso))
+
+
+#plotting the x and y 'ro' is required for the scatter plot; in general, its a blue line 'b-'
+plt.plot(conc_arr, abso_arr, 'ro')
+
+#line of best fit using polyfit function
+m, c = np.polyfit(conc_arr, abso_arr, 1)
+
+print('gradient=', m)
+print('y-intercept', c)
+
+plt.plot(conc_arr, m*conc_arr+c) 
+
+#linear equation defining the relationship between the x and y variables: y = mx + c
+reg_line = 'equation of the line: y = {} + {}x'.format(round(m, 3), round(c, 3))
+
+print(reg_line)
+
+
+#plug in the absorbance value in y = mx + c and calculate the concentration of proteins in sample solution
+
+#new_y is the aborbance value for the sample with unknown concentration of proteins
+new_y = float(input("What is your absorbance value?"))
+
+#function calconc calculates the concentration of proteins in the sample solution by plugging in the absorbance value into the equation
+def calconc (gradient, intercept, absorbance):
+    concentration = (absorbance - intercept) / gradient
+    return concentration 
+
+calconc(m, c, new_y)
+
