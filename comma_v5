@@ -1,4 +1,4 @@
-#assumes comma to be decimals. is robust to commas used as decimals. However, it doesn't produce results using commas
+#V5: assumes comma to be decimals. is robust to commas used as decimals. However, it doesn't produce results using commas
 
 import pandas as pd
 import matplotlib.pyplot as plt
