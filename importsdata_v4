@@ -1,0 +1,49 @@
+#V4: Instead of asking data from user, it imports data from files, makes calculations henceforth. Also, shows r^2 score. and is robust to spaces in user input
+
+import pandas as pd
+import matplotlib.pyplot as plt
+import numpy as np
+import scipy.stats as stats
+
+#layout of the graph
+plt.ylabel('absorbance at 595nm')
+plt.xlabel('concentration of proteins')
+plt.title('Graph of the standard curve')
+
+data = pd.read_csv('data_brtoo.csv')
+conc = data['Concentration']
+abso = data['Absorbance']
+
+print(data.head())
+
+#plotting the x and y 'ro' is required for the scatter plot; in general, its a blue line 'b-'
+plt.plot(conc, abso, 'ro')
+
+#line of best fit using polyfit function
+m, c = np.polyfit(conc, abso, 1)
+
+print('gradient=', m)
+print('y-intercept', c)
+
+plt.plot(conc, m*conc+c) 
+
+#linear equation defining the relationship between the x and y variables: y = mx + c
+reg_line = 'equation of the line: y = {} + {}x'.format(round(c, 3), round(m, 3))
+
+print(reg_line)
+
+#calculate r2 score for the data
+res = stats.linregress(conc, abso)
+print(f'R-squared: {res.rvalue**2:.6f}')
+
+#plug in the absorbance value in y = mx + c and calculate the concentration of proteins in sample solution
+
+#new_y is the aborbance value for the sample with unknown concentration of proteins
+new_y = float(input("What is your absorbance value?"))
+
+#function calconc calculates the concentration of proteins in the sample solution by plugging in the absorbance value into the equation
+def calconc (gradient, intercept, absorbance):
+    concentration = (absorbance - intercept) / gradient
+    print('concentration: {}'.format(round(concentration, 3)))
+
+calconc(m, c, new_y)
